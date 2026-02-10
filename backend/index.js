@@ -64,15 +64,19 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
 
-app.use(express.static(path.join(__dirname, "dist")));
 
+app.use(
+  express.static(path.join(__dirname, "../frontend/dist"))
+);
+
+/* ✅ SPA FALLBACK */
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(
+    path.join(__dirname, "../frontend/dist/index.html")
+  );
 });
-
 
 app.listen(port, () => {
   connectDb();
   console.log("Server running on port", port);
 });
-
